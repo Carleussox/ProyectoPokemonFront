@@ -1,0 +1,29 @@
+<button (click)="fetchNewPokemon()">Llamar pokemon</button>
+@if(pokemon){
+<div id="pokeComponent">
+    <h2 id="pokeName">
+        Nombre: {{pokemon[0].name}}
+    </h2>
+    <div id="pokeGen">
+        Generación: {{pokemon[0].generation}}
+    </div>
+    <div id="pokeLegend">
+        Estado de legendario: @if (pokemon[0].legendary) {Sí} @else {No}
+    </div>
+    <div id="pokeType">
+        <span>Tipo: {{pokemon[0].type1}}</span>
+        @if (pokemon[0].type2) {<span>Tipo 2: {{pokemon[0].type2}}</span>}
+    </div>
+    <main id="pokeStats">
+        <ul>
+            <li>id: {{pokemon[0].pokemonStats.id}}</li>
+            <li>hp: {{pokemon[0].pokemonStats.hp}}</li>
+            <li>attack: {{pokemon[0].pokemonStats.attack}}</li>
+            <li>def: {{pokemon[0].pokemonStats.def}}</li>
+            <li>spatk: {{pokemon[0].pokemonStats.spatk}}</li>
+            <li>spdef: {{pokemon[0].pokemonStats.spdef}}</li>
+            <li>speed: {{pokemon[0].pokemonStats.speed}}</li>
+        </ul>
+    </main>
+</div>
+}
