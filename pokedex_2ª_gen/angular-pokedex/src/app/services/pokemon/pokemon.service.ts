@@ -1,12 +1,16 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Pokemon } from '../../interfaces/Pokemon.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonService {
+  private selectedPokemonSubject = new BehaviorSubject<Pokemon |null>(null);
+  selectedPokemon = this.selectedPokemonSubject.asObservable();
+
+  
   constructor(private http: HttpClient){
     
   }
@@ -18,12 +22,12 @@ export class PokemonService {
 
 
   getPokemon(id: number): Observable<any>{
-    let parametros = new HttpParams();
-    parametros.append('id',id.toString());
-    const pokemon  = this.http.get(`http://localhost:8080/fetchPokemon`,{params: parametros});
    
-    return of(pokemon);
+    return this.http.get<Pokemon>(`http://localhost:8080/fetchPokemon?id=`+ id);
   }
   //TODO implementar interfaz Pokemon
   /* getPokemon(id:number): Observable<Pokemon>{} */
+  setSelectedPokemon(pokemon:Pokemon){
+    this.selectedPokemonSubject.next(pokemon);
+  }
 }

@@ -1,7 +1,7 @@
-import { AfterContentChecked, Component, Input, OnInit } from '@angular/core';
+import {  Component, OnInit } from '@angular/core';
 import { PokemonService } from '../../services/pokemon/pokemon.service';
 import { Pokemon } from '../../interfaces/Pokemon.interface';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import {  RouterModule } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
@@ -11,21 +11,32 @@ import { Location } from '@angular/common';
   templateUrl: './pokemon-details.component.html',
   styleUrl: './pokemon-details.component.scss'
 })
-export class PokemonDetailsComponent implements OnInit, AfterContentChecked {
+export class PokemonDetailsComponent implements OnInit{
   pokemon: Pokemon[] = [];
-  constructor(private route: ActivatedRoute,private pokemonService: PokemonService,private location: Location){
+  
+  constructor(private pokemonService: PokemonService,private location: Location){
    
-  }
-  ngAfterContentChecked(): void {
-     this.pokemonService.allPokemons().subscribe(data=> this.pokemon = data);
-  }
+    }
 
 
   ngOnInit(): void {
-    
+    this.pokemonService.selectedPokemon.subscribe(pokemon=>{
+      if(pokemon){
+        this.pokemon[0] = pokemon;
+      }
+    })
   }
 
   fetchNewPokemon(){
-    this.pokemonService.getPokemon(1).subscribe(data=> this.pokemon[0]= data);
+    /* this.pokemonService.getPokemon(1).subscribe(data=> {this.pokemon[0]= data
+      console.log(data);
+    }); */
+
+    this.pokemonService.selectedPokemon.subscribe((data) => {
+      if (data !== null) {
+        this.pokemon[0] = data;
+      }
+    });
+    
   }
 }

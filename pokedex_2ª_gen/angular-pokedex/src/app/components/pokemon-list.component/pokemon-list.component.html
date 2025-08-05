@@ -1,21 +1,34 @@
 <h2>Pokemon Center:</h2>
 <ul>
-   <!--   @for (pokemon of pokemonList; track pokemon.id) {
-    <li (click)="loadDetail(pokemon.id)">
-       
+    @for (pokemon of pokemonList; track pokemon.pokemonId) {
+    <li>
+
         <h3>{{pokemon.name}}</h3>
-            <span></span>
-            <div>
-                {{pokemon.gen}}
-            </div>
-            <div>
-                {{pokemon.legend}}
-            </div>
-            <div>
-                {{pokemon.type1}}
-            </div>
-        
+        <span></span>
+        <div>
+            {{pokemon.generation}}
+        </div>
+        <div>
+            {{pokemon.legendary}}
+        </div>
+        <div>
+            {{pokemon.type1}}
+        </div>
+        @if(pokemon.type2){
+        <div>
+            {{pokemon.type2}}
+        </div>
+
+        }
+        <button (click)="loadDetail(pokemon.pokemonId)">Ver Pokemon</button>
+
+
     </li>
-    } -->
-    <button (click)="getTestPokemon()">Prueba pokemon</button>
+    }
+    
+
+
 </ul>
+
+
+
